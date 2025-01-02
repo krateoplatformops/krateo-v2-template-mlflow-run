@@ -1,6 +1,6 @@
 {{- $run := lookup "mlflow.krateo.io/v1alpha1" "Run" .Release.Namespace (printf "%s-run" .Values.run_name) -}}
 {{- if and $run $run.status $run.status.run_id }}
-apiVersion: krateo.github.com/v1alpha1
+apiVersion: github.krateo.io/v1alpha1
 kind: Workflow
 metadata:
   name: {{ .Values.run_name }}-workflow
