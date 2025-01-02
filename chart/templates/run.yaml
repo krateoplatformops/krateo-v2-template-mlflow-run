@@ -1,0 +1,12 @@
+apiVersion: mlflow.krateo.io/v1alpha1
+kind: Run
+metadata:
+  name: {{ .Values.run_name }}-run
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    krateo.io/connector-verbose: "true"
+spec:
+  run_name: {{ .Values.run_name }}
+  experiment_id: {{ .Values.experiment.experiment_id }}
+  authenticationRefs:
+    bearerAuthRef: bearer-mlflow-ref

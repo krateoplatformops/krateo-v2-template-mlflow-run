@@ -1,0 +1,12 @@
+repo:
+  owner: krateoplatformops
+  name: mlflow-runs
+  workflow_id: "run.yaml"
+  ref: main
+
+experiment:
+  experiment_name: "test-exp-gen"
+  experiment_id: "1"
+
+alpha: "0.5"
+run_name: "mlflow-run-default"

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "repo": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string",
+          "description": "The owner of the repository"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the repository"
+        },
+        "workflow_id": {
+          "type": "string",
+          "description": "The ID of the workflow"
+        },
+        "ref": {
+          "type": "string",
+          "description": "The reference branch or tag"
+        }
+      },
+      "required": ["owner", "name", "workflow_id", "ref"]
+    },
+    "experiment": {
+      "type": "object",
+      "properties": {
+        "experiment_name": {
+          "type": "string",
+          "description": "The name of the experiment"
+        },
+        "experiment_id": {
+          "type": "string",
+          "description": "The ID of the experiment"
+        }
+      },
+      "required": ["experiment_name", "experiment_id"]
+    },
+    "alpha": {
+      "type": "string",
+      "description": "The alpha value for the experiment"
+    },
+    "run_name": {
+      "type": "string",
+      "description": "The name of the run"
+    }
+  },
+  "required": ["repo", "experiment", "alpha", "run_name"]
+}
