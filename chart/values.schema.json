@@ -40,7 +40,8 @@
     },
     "alpha": {
       "type": "string",
-      "description": "The alpha value for the experiment"
+      "description": "The alpha value for the experiment",
+      "default": "0.03"
     },
     "run_name": {
       "type": "string",
