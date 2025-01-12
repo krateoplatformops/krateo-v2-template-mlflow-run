@@ -2,7 +2,7 @@ apiVersion: mlflow.krateo.io/v1alpha1
 kind: Run
 metadata:
   name: {{ .Values.run_name }}-run
-  namespace: {{ .Values.experiment.experiment_id }}
+  namespace: {{ .Values.experiment.experiment_name }}
   annotations:
     krateo.io/connector-verbose: "true"
 spec:
