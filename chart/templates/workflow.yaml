@@ -4,7 +4,6 @@ apiVersion: github.krateo.io/v1alpha1
 kind: Workflow
 metadata:
   name: {{ .Values.run_name }}-workflow
-  namespace: {{ .Release.Namespace }}
   annotations:
     krateo.io/connector-verbose: "true"
 spec:
