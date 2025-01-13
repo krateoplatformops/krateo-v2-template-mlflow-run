@@ -7,46 +7,96 @@
       "properties": {
         "owner": {
           "type": "string",
-          "description": "The owner of the repository"
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the repository"
+          "description": "The owner of the repository",
+          "default": "generic-provider-testing"
         },
         "workflow_id": {
           "type": "string",
-          "description": "The ID of the workflow"
+          "description": "The ID of the workflow",
+          "default": "run.yaml"
         },
         "ref": {
           "type": "string",
-          "description": "The reference branch or tag"
+          "description": "The reference branch or tag",
+          "default": "main"
         }
       },
-      "required": ["owner", "name", "workflow_id", "ref"]
+      "required": ["owner", "workflow_id", "ref"]
     },
-    "experiment": {
+    "mlflow": {
       "type": "object",
       "properties": {
-        "experiment_name": {
-          "type": "string",
-          "description": "The name of the experiment"
+        "experiment": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of the experiment",
+              "default": "test-exp-gen"
+            }
+          },
+          "required": ["name"]
         },
-        "experiment_id": {
-          "type": "string",
-          "description": "The ID of the experiment"
+        "credentials": {
+          "type": "object",
+          "properties": {
+            "secretRef": {
+              "type": "object",
+              "properties": {
+                "namespace": {
+                  "type": "string",
+                  "description": "The namespace of the secret",
+                  "default": "mlflow-system"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "The name of the secret",
+                  "default": "azure-token"
+                },
+                "key": {
+                  "type": "string",
+                  "description": "The key of the secret",
+                  "default": "access_token"
+                }
+              },
+              "required": ["namespace", "name", "key"]
+            }
+          },
+          "required": ["secretRef"]
+        },
+        "run": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of the run",
+              "default": "mlflow-run-default"
+            },
+            "alpha": {
+              "type": "string",
+              "description": "The alpha value for the experiment",
+              "default": "0.5"
+            },
+            "metrics": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the metric",
+                    "default": "mse"
+                  }
+                },
+                "required": ["name"]
+              }
+            }
+          },
+          "required": ["name", "alpha", "metrics"]
         }
       },
-      "required": ["experiment_name", "experiment_id"]
-    },
-    "alpha": {
-      "type": "string",
-      "description": "The alpha value for the experiment",
-      "default": "0.03"
-    },
-    "run_name": {
-      "type": "string",
-      "description": "The name of the run"
+      "required": ["experiment", "credentials", "run"]
     }
   },
-  "required": ["repo", "experiment", "alpha", "run_name"]
+  "required": ["repo", "mlflow"]
 }

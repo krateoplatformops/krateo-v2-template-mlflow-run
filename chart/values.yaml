@@ -1,12 +1,21 @@
 repo:
-  owner: krateoplatformops
-  name: mlflow-runs
+  owner: generic-provider-testing
   workflow_id: "run.yaml"
   ref: main
 
-experiment:
-  experiment_name: "test-exp-gen"
-  experiment_id: "1"
+mlflow:
+  experiment:
+    name: "test-exp-gen"
+  credentials:
+    secretRef:
+      namespace: mlflow-system
+      name: azure-token
+      key: access_token
+  run:
+    name: "mlflow-run-default"
+    alpha: "0.5"
+    metrics:
+      - name: "mse"
 
-alpha: "0.5"
-run_name: "mlflow-run-default"
+
+

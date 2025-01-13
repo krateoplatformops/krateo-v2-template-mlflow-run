@@ -1,19 +1,19 @@
-{{- $run := lookup "mlflow.krateo.io/v1alpha1" "Run" .Release.Namespace (printf "%s-run" .Values.run_name) -}}
+{{- $run := lookup "mlflow.krateo.io/v1alpha1" "Run" .Release.Namespace (printf "%s-run" .Values.mlflow.run.name) -}}
 {{- if and $run $run.status $run.status.run_id }}
 apiVersion: github.krateo.io/v1alpha1
 kind: Workflow
 metadata:
-  name: {{ .Values.run_name }}-workflow
+  name: {{ .Values.mlflow.run.name }}-workflow
   annotations:
     krateo.io/connector-verbose: "true"
 spec:
   owner: {{ .Values.repo.owner }}
-  repo: {{ .Values.repo.name }}
+  repo: {{ .Values.mlflow.experiment.name }}
   workflow_id: {{ .Values.repo.workflow_id }}
   ref: {{ .Values.repo.ref }}
   inputs:
-    alpha: "{{ .Values.alpha }}"
-    experiment_name: {{ .Values.experiment.experiment_name }}
+    alpha: "{{ .Values.mlflow.run.alpha }}"
+    experiment_name: {{ .Values.mlflow.experiment.name }}
     run_id: {{ $run.status.run_id }}
   authenticationRefs:
     bearerAuthRef: bearer-gh-ref
