@@ -1,11 +1,16 @@
+# Lookup for Experiment and get experiment_id from status field
+{{- $experiment := lookup "mlflow.krateo.io/v1alpha1" "Experiment" .Release.Namespace (printf "%s-experiment" .Values.mlflow.experiment.name) -}}
+{{- if and $experiment $experiment.status $experiment.status.experiment_id }}
+
 apiVersion: mlflow.krateo.io/v1alpha1
 kind: Run
 metadata:
-  name: {{ .Values.run_name }}-run
+  name: {{ .Values.mlflow.run.name }}-run
   annotations:
     krateo.io/connector-verbose: "true"
 spec:
-  run_name: {{ .Values.run_name }}
-  experiment_id: {{ .Values.experiment.experiment_id }}
+  run_name: {{ .Values.mlflow.run.name }}
+  experiment_id: {{ $experiment.status.experiment_id }}
   authenticationRefs:
-    bearerAuthRef: bearer-mlflow-ref
+    bearerAuthRef: {{ .Values.mlflow.run.name }}-mlflow-auth-ref
+{{- end }}

@@ -1,0 +1,10 @@
+kind: BearerAuth
+apiVersion: mlflow.krateo.io/v1alpha1
+metadata:
+  name: {{ .Values.mlflow.run.name }}-mlflow-auth-ref
+spec:
+  tokenRef:
+    namespace: {{ .Values.mlflow.credentials.secretRef.namespace }}
+    name: {{ .Values.mlflow.credentials.secretRef.name }}
+    key: {{ .Values.mlflow.credentials.secretRef.key }}
+  
