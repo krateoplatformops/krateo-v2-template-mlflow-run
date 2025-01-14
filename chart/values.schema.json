@@ -80,15 +80,7 @@
             "metrics": {
               "type": "array",
               "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the metric",
-                    "default": "mse"
-                  }
-                },
-                "required": ["name"]
+                "type": "string"
               }
             }
           },

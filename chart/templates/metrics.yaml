@@ -6,12 +6,12 @@
 apiVersion: mlflow.krateo.io/v1alpha1
 kind: Metric
 metadata:
-  name: mlflow-metric-{{ $metric.name }}-{{ $runName }}
+  name: mlflow-metric-{{ $metric }}-{{ $runName }}
   annotations:
     krateo.io/connector-verbose: "true"
 spec:
   run_id: {{ $run.status.run_id }}
-  metric_key: {{ $metric.name }}
+  metric_key: {{ $metric }}
   authenticationRefs:
     bearerAuthRef: {{ $runName }}-mlflow-auth-ref
 {{- end }}

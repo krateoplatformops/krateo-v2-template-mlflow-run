@@ -5,7 +5,7 @@ repo:
 
 mlflow:
   experiment:
-    name: "test-exp-gen"
+    name: "diego-24"
   credentials:
     secretRef:
       namespace: mlflow-system
@@ -15,7 +15,7 @@ mlflow:
     name: "mlflow-run-default"
     alpha: "0.5"
     metrics:
-      - name: "mse"
+      - "mse"
 
 
 
