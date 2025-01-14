@@ -16,5 +16,6 @@ spec:
   metric_key: {{ $metric }}
   authenticationRefs:
     bearerAuthRef: {{ $runName }}-mlflow-auth-ref
+---
 {{- end }}
 {{- end }}
