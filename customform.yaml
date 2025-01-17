@@ -30,7 +30,7 @@ spec:
       color: ${ .getCompositionDefinition.status.conditions[] | select(.type == "Ready") | if .status == "False" then "orange" elif .status == "True" then "green" else "grey" end }
       content: This is a card for MLFlow model runs
       icon: fa-person-running
-      tags: mlflow-system,0.0.2
+      tags: mlflow-system,0.0.3
       title: MLFlow Model Runs
       status: ${ .getCompositionDefinition.status.conditions[] | select(.type == "Ready") | "Ready:" + .status }
       date: ${ .getCompositionDefinition.metadata.creationTimestamp }
@@ -68,38 +68,21 @@ spec:
   actions:
     - template:
         id: submit
-        apiVersion: composition.krateo.io/v0-0-2
+        apiVersion: composition.krateo.io/v0-0-3
         verb: POST
         resource: mlflowruns
         payloadToOverride:
         - name: metadata.name
-          value: ${ run_name }
+          value: ${ mlflow.run.name }
         - name: metadata.namespace
           value: ${ "mlflow-system" }
   app:
     template:
-      schema: ${ .getCRD | .spec.versions[] | select(.name == "v0-0-2") | .schema.openAPIV3Schema.properties.spec.properties }
+      schema: ${ .getCRD | .spec.versions[] | select(.name == "v0-0-3") | .schema.openAPIV3Schema.properties.spec.properties }
       # propertiesToHide: 
-      # - fullnameOverride
-      # - git.properties.deletionPolicy
-      # - git.properties.fromRepo.properties.branch
-      # - git.properties.fromRepo.properties.credentials
-      # - git.properties.fromRepo.properties.name
-      # - git.properties.fromRepo.properties.org
-      # - git.properties.fromRepo.properties.scmUrl
-      # - git.properties.insecure
-      # - git.properties.toRepo.properties.apiUrl
-      # - git.properties.toRepo.properties.branch
-      # - git.properties.toRepo.properties.credentials
-      # - git.properties.toRepo.properties.deletionPolicy
-      # - git.properties.toRepo.properties.initialize
-      # - git.properties.toRepo.properties.org
-      # - git.properties.toRepo.properties.path
-      # - git.properties.toRepo.properties.private
-      # - git.properties.toRepo.properties.scmUrl
-      # - git.properties.unsupportedCapabilities
-      # - mlflow
-      # - nameOverride
+      # - mlflow.properties.credentials
+      # - mlflow.properties.repo
+      # - repo
   api:
   - name: getCRD
     path: "/apis/apiextensions.k8s.io/v1/customresourcedefinitions/mlflowruns.composition.krateo.io"
